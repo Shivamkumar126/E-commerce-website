@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { AllProductPage } from './components/AllProductPage';
+import { CreateProduct } from './components/CreateProduct';
+import { Navbar } from './components/Navbar';
+import { RouterProvider , createBrowserRouter } from 'react-router-dom';
+
+
+
 
 function App() {
+  // const router = createBrowserRouter([
+  //   {
+  //     path:'/',
+  //     element: <AllProductPage/>,
+  //     children : [
+        
+  //       {
+  //         path: 'addproduct',
+  //         element: <CreateProduct />
+  //       }
+  //     ]
+  //   }
+  // ])
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AllProductPage />
+    
+    </>
+   
   );
 }
 
