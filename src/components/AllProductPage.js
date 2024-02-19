@@ -107,6 +107,57 @@ export function AllProductPage(props) {
     setCart(updatedCart);
   }
 
+  const plusBtn = (id)=>{
+    const changeNoOfItem = cart.findIndex((x) => x.id == id);
+    console.log("changing number");
+    let noOfItem = cart[changeNoOfItem].noOfItem + 1;
+
+    console.log(noOfItem);
+
+    const updatedProductList = [...cart];
+    updatedProductList[changeNoOfItem] = { ...updatedProductList[changeNoOfItem], noOfItem};
+
+    // Update the state with the new array
+    setCart(updatedProductList);
+
+    
+  }
+
+  const minusBtn = (id)=>{
+    const changeNoOfItem = cart.findIndex((x) => x.id == id);
+    console.log("changing number");
+    
+    let noOfItem = cart[changeNoOfItem].noOfItem ;
+
+    if(noOfItem>1){
+
+      noOfItem-=1;
+      
+    const updatedCartList = [...cart];
+    updatedCartList[changeNoOfItem] = { ...updatedCartList[changeNoOfItem], noOfItem};
+
+    setCart(updatedCartList);
+
+    }else{
+      const updatedCartList = cart.filter((product) => product.id !== id);
+      setCart(updatedCartList);
+        }
+
+  }
+
+  const takeTotal = (arrOfProduct)=>{
+    let total = 0;
+    arrOfProduct.forEach((cartItem) => {
+      for(let i =0 ; i<cartItem.noOfItem ; i++ ){
+        total += cartItem.price;
+      }
+    });
+  
+      return total;
+   }
+  
+   const totalPrice = takeTotal(cart);
+
 
   useEffect(() => {
     let url = " https://my-json-server.typicode.com/Shivamkumar126/demoAPI/products";
@@ -114,7 +165,7 @@ export function AllProductPage(props) {
     const fetchData = async () => {
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setProductList(data);
 
     }
@@ -125,14 +176,20 @@ export function AllProductPage(props) {
 
 
 
+
   return (
     <>
-      <Navbar handleAddBtn={handleAddBtn} handleHomeBtn={handleHomeBtn} handleShowCart={handleShowCart} />
+      <Navbar handleAddBtn={handleAddBtn} handleHomeBtn={handleHomeBtn} handleShowCart={handleShowCart}  />
 
       {showCart ? (
-        cart.map((cartItem, i) => (
-          <Cart key={i} cartItem={cartItem} handleDelete={handleCartDelete}/>
-        ))
+        <div>
+        {cart.map((cartItem, i) => (
+           <Cart key={i} cartItem={cartItem} handleDelete={handleCartDelete} totalPrice={totalPrice} plusBtn=
+           {plusBtn} minusBtn={minusBtn}/>
+          
+        ))}
+        <div id="total_price">Total Price :<span> {totalPrice} </span></div>
+          </div>
       ) : (
 
         <>

@@ -1,5 +1,8 @@
 
 export function Cart(props) {
+
+   
+
     return (
         <>
 
@@ -15,10 +18,13 @@ export function Cart(props) {
                 </div>
 
                 <div className="card-body ">
-
+                    <button onClick={() => props.minusBtn(props.cartItem.id)}  className="card-link">-</button>
+                    <span> {props.cartItem.noOfItem}</span>
+                    <button onClick={() => props.plusBtn(props.cartItem.id)}  className="card-link">+</button>
                     <button onClick={() => props.handleDelete(props.cartItem.id)} className="card-link">Delete</button>
                 </div>
             </div>
+
         </>
     );
 
